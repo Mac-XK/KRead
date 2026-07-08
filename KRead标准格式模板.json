@@ -1,0 +1,42 @@
+{
+  "mode": "kread",
+  "bookSourceName": "KRead 标准书源模板",
+  "bookSourceUrl": "https://example.com",
+  "bookSourceGroup": "模板",
+  "enabled": true,
+  "header": {
+    "User-Agent": "Mozilla/5.0"
+  },
+  "searchUrl": "{\"url\":\"/search?q={{key}}&page={{page}}\",\"method\":\"GET\",\"charset\":\"utf-8\",\"connectTimeout\":30000}",
+  "ruleSearch": {
+    "bookList": "@css:.book-item",
+    "name": "@css:h3 a@text",
+    "author": "@css:.author@text",
+    "bookUrl": "@css:h3 a@href",
+    "coverUrl": "@css:img@src",
+    "kind": "@css:.meta@text",
+    "lastChapter": "@css:.last@text",
+    "intro": "@css:.intro@text"
+  },
+  "ruleBookInfo": {
+    "name": "@css:meta[property$='book_name']@content",
+    "author": "@css:meta[property$='author']@content",
+    "coverUrl": "@css:meta[property='og:image']@content",
+    "intro": "@css:meta[property$='description']@content",
+    "kind": "@css:meta[property$='category']@content",
+    "lastChapter": "@css:meta[property$='latest_chapter_name']@content",
+    "tocUrl": ""
+  },
+  "ruleToc": {
+    "chapterList": "@css:.chapter-list a",
+    "chapterName": "text",
+    "chapterUrl": "href",
+    "isVolume": "false",
+    "nextTocUrl": ""
+  },
+  "ruleContent": {
+    "content": "@css:.content@text",
+    "nextContentUrl": "",
+    "replaceRegex": ""
+  }
+}
