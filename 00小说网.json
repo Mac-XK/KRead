@@ -1,0 +1,42 @@
+{
+  "bookSourceUrl": "https://m.00shu.la/",
+  "bookSourceName": "00小说网",
+  "bookSourceGroup": "网页书源",
+  "bookSourceType": 0,
+  "enabled": true,
+  "header": "{\"User-Agent\":\"Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148\",\"sec-ch-ua-platform\":\"\\\"Android\\\"\",\"origin\":\"https://m.00shu.la\",\"x-requested-with\":\"cn.mujiankeji.mbrowser\",\"Referer\":\"https://m.00shu.la/\",\"Accept-language\":\"zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7\"}",
+  "searchUrl": "{\"url\":\"/s.php\",\"body\":\"searchkey={{key}}&type=articlename\",\"charset\":\"utf-8\",\"method\":\"POST\",\"connectTimeout\":60000}",
+  "ruleSearch": {
+    "bookList": "@css:.sone",
+    "name": "a[0]@text",
+    "author": "a[1]@text",
+    "bookUrl": "a[0]@href",
+    "coverUrl": "{{ var href = java.getString(result, 'a[0]@href') || ''; var m = href.match(/\\/(\\d+)\\/?$/); if (m) { var bid = parseInt(m[1], 10); var aid = parseInt(bid / 1000, 10); return '/image/' + aid + '/' + bid + '/' + bid + 's.jpg'; } return ''; }}",
+    "intro": "",
+    "kind": "",
+    "lastChapter": ""
+  },
+  "ruleBookInfo": {
+    "name": "@css:meta[property='og:novel:book_name']@content",
+    "author": "@css:meta[property='og:novel:author']@content",
+    "intro": "@css:meta[property='og:description']@content##\\s+##",
+    "coverUrl": "@css:meta[property='og:image']@content",
+    "kind": "{{@css:meta[property='og:novel:status']@content}} {{@css:meta[property='og:novel:update_time']@content}}",
+    "lastChapter": "@css:meta[property='og:novel:latest_chapter_name']@content||@css:meta[property='og:novel:last_chapter_name']@content",
+    "tocUrl": "",
+    "wordCount": ""
+  },
+  "ruleToc": {
+    "chapterList": "@css:.list_xm li!1",
+    "chapterName": "a@text",
+    "chapterUrl": "a@href",
+    "isVolume": "false",
+    "nextTocUrl": "@js: var options = JSON.parse(java.getElements(result, 'option') || '[]'); for (var i = 0; i < options.length; i++) { var val = java.getString(options[i], 'value') || ''; if (!val) continue; if (/_[0-9]+\\/?$/.test(val) && !(baseUrl && baseUrl.endsWith(val))) return val; } var links = JSON.parse(java.getElements(result, 'a') || '[]'); for (var j = 0; j < links.length; j++) { var text = java.getString(links[j], 'text') || ''; if (text.indexOf('下一页') >= 0) return java.getString(links[j], 'href'); } return '';"
+  },
+  "ruleContent": {
+    "content": "@css:#novelcontent",
+    "nextContentUrl": "@js: var links = JSON.parse(java.getElements(result, 'a') || '[]'); for (var i = 0; i < links.length; i++) { var text = java.getString(links[i], 'text') || ''; if (text.indexOf('下一页') >= 0) return java.getString(links[i], 'href'); } return '';",
+    "replaceRegex": ".*最新网址.*##\n.*第\\d+\\/\\d+.*##\n上一章|下一章|返回目录|加入书签|下一页|上一页##\n.*本章未完.*##"
+  },
+  "mode": "kread"
+}
